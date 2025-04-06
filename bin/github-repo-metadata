@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Use bash to keep this from accidentally running under Alpine/Codefresh
+# Switch to sh to allow use in Alpine. The script works either way.
+
+set -o pipefail
+
+function fetch() {
+  local org="$1"
+  local repo="$2"
+  local api="$3"
+  local path="$4"
+  local header=""
+
+  if [ -n "$GITHUB_TOKEN" ]; then
+    header="Authorization: token $GITHUB_TOKEN"
+  fi
+
+  if [ "${api}" == "index" ]; then
+    api=""
+  else
+    api="/${api}"
+  fi
+
+  local url="https://api.github.com/repos/$org/${repo}${api}"
+  local ref=$(curl -fsSL -H "$header" "${url}" | jq -r "$path")
+  if [ $? -eq 0 ]; then
+    echo $ref
+  else
+    echo "ERROR: Failed to retrieve ${url}" >&2
+    exit 1
+  fi
+}
+
+if [ $# -eq 4 ]; then
+  fetch "${1}" "${2}" "${3}" "${4}"
+else
+  echo "Usage: $0 [org] [repo] [api] [jq path]"
+  echo "  e.g. $0 cloudposse geodesic license .license.spdx_id"
+  echo "       $0 cloudposse geodesic releases/latest .tag_name"
+  echo "       $0 cloudposse geodesic '' .description"
+  exit 1
+fi
