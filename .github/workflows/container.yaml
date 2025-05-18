@@ -31,7 +31,6 @@ jobs:
             type=sha,format=short,prefix=
             type=ref,event=tag
             type=ref,event=branch
-            type=raw,enable=${{ startsWith(github.ref, 'refs/tags/') }},value=latest
 
       - name: Login to GitHub Container Registry
         uses: redhat-actions/podman-login@v1
