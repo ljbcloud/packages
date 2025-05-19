@@ -1,8 +1,0 @@
-*
-!.gitignore
-!arch-filter
-!github-repo-metadata
-!latest-github-version
-!package-filter
-!pinned-package-sanity-check
-!semver

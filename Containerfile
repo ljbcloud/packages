@@ -1,11 +1,20 @@
-FROM docker.io/library/alpine:3.20
+FROM docker.io/library/python:3.13.2-alpine as build
 
 # hadolint ignore=DL3018
-RUN apk add --update --no-cache bash coreutils curl jq make sudo tar xz
+RUN apk add --update --no-cache bash coreutils curl git tar xz
 
 COPY . /packages
 
-RUN make -C /packages/install all && \
-    make -C /packages dist
+WORKDIR /packages
+
+RUN pip install --no-cache-dir poetry=="$(awk '/^poetry/ {print $2}' .tool-versions)" && \
+    poetry install
+
+# hadolint ignore=DL3059
+RUN poetry run invoke install.all
 
 WORKDIR /packages/dist
+
+FROM scratch
+
+COPY --from=build /packages/dist /dist
