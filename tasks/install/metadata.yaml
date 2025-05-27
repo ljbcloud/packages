@@ -36,6 +36,12 @@ packages:
     version: "1.79.1"
     repo_url: https://github.com/exoscale/cli
     download_url: "{{repo_url}}/releases/download/v{{version}}/exoscale-cli_{{version}}_{{os}}_{{arch}}.tar.gz"
+  - name: flux
+    description: Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.
+    license: APACHE-2.0
+    version: "2.5.1"
+    repo_url: https://github.com/fluxcd/flux2
+    download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os}}_{{arch}}.tar.gz"
   - name: helm-docs
     description: A tool for automatically generating markdown documentation for helm charts
     license: GPL-3.0
