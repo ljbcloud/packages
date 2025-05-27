@@ -48,6 +48,12 @@ packages:
     version: "1.14.2"
     repo_url: https://github.com/norwoodj/helm-docs
     download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os|capitalize}}_{{rust_arch}}.tar.gz"
+  - name: k3s
+    description: Lightweight Kubernetes
+    license: APACHE-2.0
+    version: "1.33.1+k3s1"
+    repo_url: https://github.com/k3s-io/k3s
+    download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}{{ '-%' | format(arch) if arch != 'amd64' else '' }}"
   - name: kind
     description: A tool for running local Kubernetes clusters using Docker
     license: MIT
