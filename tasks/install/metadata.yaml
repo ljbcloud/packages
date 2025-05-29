@@ -48,6 +48,12 @@ packages:
     version: "1.14.2"
     repo_url: https://github.com/norwoodj/helm-docs
     download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os|capitalize}}_{{rust_arch}}.tar.gz"
+  - name: k3d
+    description: Little helper to run CNCF's k3s in Docker
+    license: MIT
+    version: "5.8.3"
+    repo_url: https://github.com/k3d-io/k3d
+    download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}{{ '.exe' if os == 'windows' else ''}}"
   - name: k3s
     description: Lightweight Kubernetes
     license: APACHE-2.0
