@@ -32,6 +32,12 @@ jobs:
             type=ref,event=tag
             type=ref,event=branch
 
+      - name: Set up variables
+        id: vars
+        run: |
+          echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "IMAGE=ghcr.io/${{ github.repository }}" >> $GITHUB_ENV
+
       - name: Login to GitHub Container Registry
         uses: redhat-actions/podman-login@v1
         with:
@@ -39,7 +45,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Image
+      - name: Check For Existing Image
+        id: image_exists
+        run: |
+          set -e
+          # Try to pull the image with the SHA tag
+          if podman pull $IMAGE:${SHORT_SHA}; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build Image (if needed)
+        if: steps.image_exists.outputs.exists == 'false'
         uses: redhat-actions/buildah-build@v2
         id: build
         with:
@@ -51,8 +69,20 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           tags: ${{ steps.metadata.outputs.tags }}
 
-      - name: Push Image
+      - name: Push Image (if built)
+        if: steps.image_exists.outputs.exists == 'false'
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build.outputs.image }}
           tags: ${{ steps.build.outputs.tags }}
+
+      - name: Retag and Push (if image already exists)
+        if: steps.image_exists.outputs.exists == 'true'
+        run: |
+          # Retag for branch/tag if needed
+          for tag in ${{ steps.metadata.outputs.tags }}; do
+            if [ "$tag" != "${SHORT_SHA}" ]; then
+              podman tag $IMAGE:${SHORT_SHA} $IMAGE:$tag
+              podman push $IMAGE:$tag
+            fi
+          done
