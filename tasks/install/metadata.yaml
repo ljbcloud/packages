@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=metadata.schema.json
 ---
 packages:
   - name: argocd
@@ -118,3 +119,9 @@ packages:
     version: "0.58.0"
     repo_url: https://github.com/terraform-linters/tflint
     download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}.zip"
+  - name: tilt
+    description: Define your dev environment as code. For microservice apps on Kubernetes.
+    license: APACHE-2.0
+    version: "0.34.5"
+    repo_url: https://github.com/tilt-dev/tilt
+    download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}.{{version}}.{{os}}.{{rust_arch}}.tar.gz"
