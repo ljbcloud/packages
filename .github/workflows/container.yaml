@@ -79,10 +79,12 @@ jobs:
       - name: Retag and Push (if image already exists)
         if: steps.image_exists.outputs.exists == 'true'
         run: |
-          # Retag for branch/tag if needed
-          for tag in ${{ steps.metadata.outputs.tags }}; do
-            if [ "$tag" != "${SHORT_SHA}" ]; then
-              podman tag $IMAGE:${SHORT_SHA} $IMAGE:$tag
-              podman push $IMAGE:$tag
+          TAGS="${{ steps.metadata.outputs.tags }}"
+
+          for tag in $TAGS; do
+            if [ "$tag" != "$IMAGE:$SHORT_SHA" ]; then
+              echo "Retagging $IMAGE:$SHORT_SHA as $IMAGE:$tag"
+              podman tag $IMAGE:$SHORT_SHA $tag
+              podman push $tag
             fi
           done

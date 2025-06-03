@@ -1,4 +1,6 @@
-FROM docker.io/library/python:3.13.2-alpine as build
+ARG PYTHON_VERSION="3.13.2"
+
+FROM docker.io/library/python:${PYTHON_VERSION}-alpine as build
 
 # hadolint ignore=DL3018
 RUN apk add --update --no-cache bash coreutils curl git tar xz
