@@ -90,6 +90,12 @@ packages:
     version: "0.10.0"
     repo_url: https://github.com/koalaman/shellcheck
     download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}-v{{version}}.{{os|capitalize}}.{{rust_arch}}.tar.xz"
+  - name: skaffold
+    description: Easy and Repeatable Kubernetes Development
+    license: APACHE-2.0
+    version: "2.16.0"
+    repo_url: https://github.com/GoogleContainerTools/skaffold
+    download_url: "{{repo_url}}/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}"
   - name: solc
     description: Solidity, the Smart Contract Programming Language
     license: GPL-3.0
