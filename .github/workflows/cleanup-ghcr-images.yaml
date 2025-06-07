@@ -17,6 +17,6 @@ jobs:
         with:
           package: packages
           keep-n-tagged: 10
-          exclude-tags: v*|latest
+          exclude-tags: v*,latest
           delete-untagged: true
           use-regex: true
