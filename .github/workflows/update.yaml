@@ -1,0 +1,57 @@
+name: Update Packages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-and-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # needed to create branches and PRs properly
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+      - name: Cache Poetry virtual environment
+        uses: actions/cache@v4
+        id: cache-venv
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}-${{ hashFiles('.github/workflows/update.yaml') }}-${{ steps.setup-python.outputs.python-version }}
+
+      - name: Cache Poetry cache
+        uses: actions/cache@v4
+        id: cache-poetry
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-cache-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+
+      - name: Install Poetry
+        if: steps.cache-poetry.outputs.cache-hit != 'true'
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Add Poetry to PATH
+        run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      - name: Run Invoke task
+        run: poetry run invoke update.a
+
+      - name: Commit and create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update dependencies and run invoke task
+          title: 'chore: update package versions'
+          body: |
+            This pull request was automatically created by a GitHub Action that updates package versions.
+          branch: update/package-versions
