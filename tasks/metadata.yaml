@@ -1,0 +1,147 @@
+argocd:
+  description: Declarative Continuous Deployment for Kubernetes
+  download_url: https://github.com/argoproj/argo-cd/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}
+  license: APACHE-2.0
+  repo_url: https://github.com/argoproj/argo-cd
+  version: 3.0.6
+asdf:
+  description: Extendable version manager with support for Ruby, Node.js, Elixir,
+    Erlang & more
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-v{{version}}-{{os}}-{{arch}}.tar.gz'
+  license: MIT
+  repo_url: https://github.com/asdf-vm/asdf
+  version: 0.18.0
+cr:
+  description: CLI tool for linting and testing Helm charts
+  download_url: '{{repo_url}}/releases/download/v{{version}}/chart-releaser_{{version}}_{{os}}_{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/helm/chart-releaser
+  version: 1.8.1
+ct:
+  description: Hosting Helm Charts via GitHub Pages and Releases
+  download_url: '{{repo_url}}/releases/download/v{{version}}/chart-testing_{{version}}_{{os}}_{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/helm/chart-testing
+  version: 3.13.0
+ctlptl:
+  description: Making local Kubernetes clusters fun and easy to set up
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}.{{version}}.{{os}}.{{rust_arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/tilt-dev/ctlptl
+  version: 0.8.42
+doctl:
+  description: A command line tool for DigitalOcean services
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{version}}-{{os}}-{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/digitalocean/doctl
+  version: 1.131.0
+exo:
+  description: 'Command-line tool for everything at Exoscale: compute, storage, dns.'
+  download_url: '{{repo_url}}/releases/download/v{{version}}/exoscale-cli_{{version}}_{{os}}_{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/exoscale/cli
+  version: 1.85.0
+flux:
+  description: Open and extensible continuous delivery solution for Kubernetes. Powered
+    by GitOps Toolkit.
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os}}_{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/fluxcd/flux2
+  version: 2.6.2
+helm-docs:
+  description: A tool for automatically generating markdown documentation for helm
+    charts
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os|capitalize}}_{{rust_arch}}.tar.gz'
+  license: GPL-3.0
+  repo_url: https://github.com/norwoodj/helm-docs
+  version: 1.14.2
+k3d:
+  description: Little helper to run CNCF's k3s in Docker
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}{{
+    ".exe" if os == "windows" else ""}}'
+  license: MIT
+  repo_url: https://github.com/k3d-io/k3d
+  version: 5.8.3
+k3s:
+  description: Lightweight Kubernetes
+  download_url: '{{repo_url}}/releases/download/v{{version}}+k3s1/{{name}}{{ "-%s" | format(arch)
+    if arch != "amd64" else "" }}'
+  license: APACHE-2.0
+  repo_url: https://github.com/k3s-io/k3s
+  version: 1.33.1
+kind:
+  description: A tool for running local Kubernetes clusters using Docker
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}'
+  license: MIT
+  repo_url: https://github.com/kubernetes-sigs/kind
+  version: 0.29.0
+kustomize:
+  description: Customization of kubernetes YAML configurations
+  download_url: '{{repo_url}}/releases/download/{{name}}/v{{version}}/{{name}}_v{{version}}_{{os}}_{{arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/kubernetes-sigs/kustomize
+  version: 5.6.0
+packer:
+  description: Packer is a tool for creating identical machine images for multiple
+    platforms from a single source configuration.
+  download_url: https://releases.hashicorp.com/{{name}}/{{version}}/{{name}}_{{version}}_{{os}}_{{arch}}.zip
+  license: MPL-2.0
+  repo_url: https://github.com/hashicorp/packer
+  version: 1.13.1
+shellcheck:
+  description: ShellCheck, a static analysis tool for shell scripts
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-v{{version}}.{{os|capitalize}}.{{rust_arch}}.tar.xz'
+  license: GPL-3.0
+  repo_url: https://github.com/koalaman/shellcheck
+  version: 0.10.0
+skaffold:
+  description: Easy and Repeatable Kubernetes Development
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{os}}-{{arch}}'
+  license: APACHE-2.0
+  repo_url: https://github.com/GoogleContainerTools/skaffold
+  version: 2.16.1
+solc:
+  description: Solidity, the Smart Contract Programming Language
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-static-{{os}}'
+  license: GPL-3.0
+  repo_url: https://github.com/ethereum/solidity
+  version: 0.8.30
+starship:
+  description: "\u2604\U0001F30C\uFE0F The minimal, blazing-fast, and infinitely customizable\
+    \ prompt for any shell!"
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{rust_arch}}-unknown-{{os}}-gnu.tar.gz'
+  license: ICS
+  repo_url: https://github.com/starship/starship
+  version: 1.23.0
+terraform:
+  description: Terraform is a tool for building, changing, and combining infrastructure
+    safely and efficiently.
+  download_url: https://releases.hashicorp.com/{{name}}/{{version}}/{{name}}_{{version}}_{{os}}_{{arch}}.zip
+  license: Business Source License v1.1 https://www.hashicorp.com/bsl
+  repo_url: https://github.com/hashicorp/terraform
+  version: 1.12.2
+terraform-docs:
+  description: Generate docs from terraform modules
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-v{{version}}-{{os}}-{{arch}}.tar.gz'
+  license: MIT
+  repo_url: https://github.com/segmentio/terraform-docs
+  version: 0.20.0
+terragrunt:
+  description: Terragrunt is a thin wrapper for Terraform that provides extra tools
+    for working with multiple Terraform modules.
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}'
+  license: MIT
+  repo_url: https://github.com/gruntwork-io/terragrunt
+  version: 0.81.10
+tflint:
+  description: A Pluggable Terraform Linter
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}.zip'
+  license: MPL 2.0
+  repo_url: https://github.com/terraform-linters/tflint
+  version: 0.58.0
+tilt:
+  description: Define your dev environment as code. For microservice apps on Kubernetes.
+  download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}.{{version}}.{{os}}.{{rust_arch}}.tar.gz'
+  license: APACHE-2.0
+  repo_url: https://github.com/tilt-dev/tilt
+  version: 0.35.0

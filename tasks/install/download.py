@@ -3,7 +3,7 @@ import tempfile
 from invoke import Context
 
 
-class PackageDownloader(object):
+class PackageDownloader:
     CURL = "curl --retry 3 --retry-delay 5 --fail -sSL"
 
     def __init__(
@@ -77,53 +77,47 @@ class PackageDownloader(object):
     def download_binary_bz2(self) -> None:
         self._mkdir(self._install_path)
         self._curl(self._download_url, f"{self._install_path}/{self._package_name}.bz2")
-        self._ctx.run(
-            f"bzip2 -d -f -k -q {self._install_path}/{self._package_name}.bz2"
-        )
+        self._ctx.run(f"bzip2 -d -f -k -q {self._install_path}/{self._package_name}.bz2")
         self._chmod(f"{self._install_path}/{self._package_exe}")
         self._ctx.run(f"rm -rf {self._install_path}/{self._package_name}.bz2")
 
     def download_tarball(self) -> None:
         self._mkdir(self._install_path)
         with tempfile.TemporaryDirectory(suffix=self._package_name) as temp_dir:
+            self._ctx.run(f"{self.CURL} -o - {self._download_url} | tar -zx -C {temp_dir}")
             self._ctx.run(
-                f"{self.CURL} -o - {self._download_url} | tar -zx -C {temp_dir}"
-            )
-            self._ctx.run(
-                f"find {temp_dir} -type f -name '{self._package_name}*' | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name '{self._package_name}*' | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
 
     def download_tar_bz2(self) -> None:
         self._mkdir(self._install_path)
         with tempfile.TemporaryDirectory(suffix=self._package_name) as temp_dir:
+            self._ctx.run(f"{self.CURL} -o - {self._download_url} | tar -jx -C {temp_dir}")
             self._ctx.run(
-                f"{self.CURL} -o - {self._download_url} | tar -jx -C {temp_dir}"
-            )
-            self._ctx.run(
-                f"find {temp_dir} -type f -name {self._package_name} | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name {self._package_name} | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
 
     def download_tar_gz(self) -> None:
         self._mkdir(self._install_path)
         with tempfile.TemporaryDirectory(suffix=self._package_name) as temp_dir:
+            self._ctx.run(f"{self.CURL} -o - {self._download_url} | tar -zx -C {temp_dir}")
             self._ctx.run(
-                f"{self.CURL} -o - {self._download_url} | tar -zx -C {temp_dir}"
-            )
-            self._ctx.run(
-                f"find {temp_dir} -type f -name {self._package_name} | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name {self._package_name} | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
 
     def download_tar_xz(self) -> None:
         self._mkdir(self._install_path)
         with tempfile.TemporaryDirectory(suffix=self._package_name) as temp_dir:
+            self._ctx.run(f"{self.CURL} -o - {self._download_url} | tar -Jx -C {temp_dir}")
             self._ctx.run(
-                f"{self.CURL} -o - {self._download_url} | tar -Jx -C {temp_dir}"
-            )
-            self._ctx.run(
-                f"find {temp_dir} -type f -name {self._package_name} | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name {self._package_name} | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
 
@@ -133,7 +127,8 @@ class PackageDownloader(object):
             self._curl(self._download_url, f"{temp_dir}/{self._package_name}.zip")
             self._ctx.run(f"unzip {temp_dir}/{self._package_name}.zip -d {temp_dir}")
             self._ctx.run(
-                f"find {temp_dir} -type f -name {self._package_name} | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name {self._package_name} | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
 
@@ -143,6 +138,7 @@ class PackageDownloader(object):
             self._curl(self._download_url, f"{temp_dir}/{self._package_name}.gz")
             self._ctx.run(f"gunzip {temp_dir}/{self._package_name}.gz")
             self._ctx.run(
-                f"find {temp_dir} -type f -name {self._package_name} | xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
+                f"find {temp_dir} -type f -name {self._package_name} | \
+                    xargs -I {{}} cp -f {{}} {self._install_path}/{self._package_exe}"
             )
             self._chmod(f"{self._install_path}/{self._package_exe}")
