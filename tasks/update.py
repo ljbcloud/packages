@@ -78,7 +78,6 @@ def package(c: Context, name: str) -> None:
     package_metadata = METADATA[name]
 
     current_semver = package_metadata["version"]
-    print(f"{name}: current version: {current_semver}")
     repo_owner, repo_name = get_owner_and_repo(package_metadata["repo_url"])
     latest_tag = get_latest_github_release_version(repo_owner, repo_name)
     match = re.search(r"v?(\d+\.\d+\.\d+)", latest_tag)
@@ -87,12 +86,10 @@ def package(c: Context, name: str) -> None:
         latest_semver = match.group(0)
         latest_semver = latest_semver.lstrip("v")
     else:
-        print("No version found.")
-
-    print(f"{name}: latest version: {latest_semver}")
+        print(f"{name}: no version found.")
 
     if semver.compare(current_semver, latest_semver) == -1:
-        print(f"{name}: upgrading to version {latest_semver}")
+        print(f"{name}: upgrading {current_semver} to {latest_semver}")
         package_metadata["version"] = latest_semver
         METADATA[name] = package_metadata
 

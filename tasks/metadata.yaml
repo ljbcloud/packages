@@ -40,7 +40,7 @@ exo:
   download_url: '{{repo_url}}/releases/download/v{{version}}/exoscale-cli_{{version}}_{{os}}_{{arch}}.tar.gz'
   license: APACHE-2.0
   repo_url: https://github.com/exoscale/cli
-  version: 1.85.0
+  version: 1.85.1
 flux:
   description: Open and extensible continuous delivery solution for Kubernetes. Powered
     by GitOps Toolkit.
@@ -64,8 +64,8 @@ k3d:
   version: 5.8.3
 k3s:
   description: Lightweight Kubernetes
-  download_url: '{{repo_url}}/releases/download/v{{version}}+k3s1/{{name}}{{ "-%s" | format(arch)
-    if arch != "amd64" else "" }}'
+  download_url: '{{repo_url}}/releases/download/v{{version}}+k3s1/{{name}}{{ "-%s"
+    | format(arch) if arch != "amd64" else "" }}'
   license: APACHE-2.0
   repo_url: https://github.com/k3s-io/k3s
   version: 1.33.1
@@ -132,7 +132,7 @@ terragrunt:
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}'
   license: MIT
   repo_url: https://github.com/gruntwork-io/terragrunt
-  version: 0.81.10
+  version: 0.82.0
 tflint:
   description: A Pluggable Terraform Linter
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}.zip'
