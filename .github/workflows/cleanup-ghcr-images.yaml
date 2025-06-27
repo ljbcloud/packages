@@ -1,4 +1,4 @@
-name: Cleanup GHCR Images
+name: Cleanup GHCR Container Images
 
 on:
   workflow_dispatch:  # Allows manual triggering
@@ -12,7 +12,7 @@ jobs:
       packages: write  # Required to delete images
 
     steps:
-      - name: Clean up Docker images in GHCR
+      - name: Clean up Container Images in GHCR
         uses: dataaxiom/ghcr-cleanup-action@v1
         with:
           package: packages

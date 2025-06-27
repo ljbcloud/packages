@@ -1,45 +1,44 @@
-name: Update Packages
+name: Update Package Versions
 
 on:
   workflow_dispatch:
 
 jobs:
-  update-and-pr:
+  update-versions-and-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Check out repository
+      - name: CheckoutRepository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # needed to create branches and PRs properly
 
-      - name: Install asdf & tools
-        uses: asdf-vm/actions/install@v4
-
-      - name: Cache Poetry virtual environment
+      - name: Cache asdf Tools
         uses: actions/cache@v4
-        id: cache-venv
+        id: cache-asdf
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}-${{ hashFiles('.github/workflows/update.yaml') }}-${{ steps.setup-python.outputs.python-version }}
+          path: ~/.asdf
+          key: asdf-cache-${{ runner.os }}-${{ hashFiles('.tool-versions') }}
 
-      - name: Cache Poetry cache
+      - name: Cache Poetry Cache
         uses: actions/cache@v4
         id: cache-poetry
         with:
           path: ~/.cache/pypoetry
           key: poetry-cache-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
 
-      - name: Install dependencies
-        if: steps.cache-venv.outputs.cache-hit != 'true'
+      - name: Install Dependencies via asdf
+        uses: asdf-vm/actions/install@v4
+
+      - name: Install Python Dependencies
         run: poetry install --no-interaction --no-root
 
-      - name: Run Invoke task
+      - name: Run Invoke Task
         run: poetry run invoke update.a
 
-      - name: Commit and create Pull Request
+      - name: Commit and Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
