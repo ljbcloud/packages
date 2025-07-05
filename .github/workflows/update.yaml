@@ -22,21 +22,22 @@ jobs:
           path: ~/.asdf
           key: asdf-cache-${{ runner.os }}-${{ hashFiles('.tool-versions') }}
 
-      - name: Cache Poetry Cache
+      - name: Cache Virtual Environment
         uses: actions/cache@v4
-        id: cache-poetry
+        id: cache-venv
         with:
-          path: ~/.cache/pypoetry
-          key: poetry-cache-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+          path: .venv
+          key: venv-cache-${{ runner.os }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('.github/workflows/update.yaml') }}-${{ hashFiles('.python-version') }}
 
       - name: Install Dependencies via asdf
         uses: asdf-vm/actions/install@v4
 
       - name: Install Python Dependencies
-        run: poetry install --no-interaction --no-root
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: uv venv
 
       - name: Run Invoke Task
-        run: poetry run invoke update.a
+        run: uv run invoke update.a
 
       - name: Commit and Create Pull Request
         uses: peter-evans/create-pull-request@v7
