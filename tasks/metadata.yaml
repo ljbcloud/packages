@@ -34,20 +34,20 @@ doctl:
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}-{{version}}-{{os}}-{{arch}}.tar.gz'
   license: APACHE-2.0
   repo_url: https://github.com/digitalocean/doctl
-  version: 1.131.0
+  version: 1.132.0
 exo:
   description: 'Command-line tool for everything at Exoscale: compute, storage, dns.'
   download_url: '{{repo_url}}/releases/download/v{{version}}/exoscale-cli_{{version}}_{{os}}_{{arch}}.tar.gz'
   license: APACHE-2.0
   repo_url: https://github.com/exoscale/cli
-  version: 1.85.1
+  version: 1.85.3
 flux:
   description: Open and extensible continuous delivery solution for Kubernetes. Powered
     by GitOps Toolkit.
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{version}}_{{os}}_{{arch}}.tar.gz'
   license: APACHE-2.0
   repo_url: https://github.com/fluxcd/flux2
-  version: 2.6.2
+  version: 2.6.3
 helm-docs:
   description: A tool for automatically generating markdown documentation for helm
     charts
@@ -80,7 +80,7 @@ kustomize:
   download_url: '{{repo_url}}/releases/download/{{name}}/v{{version}}/{{name}}_v{{version}}_{{os}}_{{arch}}.tar.gz'
   license: APACHE-2.0
   repo_url: https://github.com/kubernetes-sigs/kustomize
-  version: 5.6.0
+  version: 5.7.0
 packer:
   description: Packer is a tool for creating identical machine images for multiple
     platforms from a single source configuration.
@@ -132,7 +132,7 @@ terragrunt:
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}'
   license: MIT
   repo_url: https://github.com/gruntwork-io/terragrunt
-  version: 0.82.0
+  version: 0.83.0
 tflint:
   description: A Pluggable Terraform Linter
   download_url: '{{repo_url}}/releases/download/v{{version}}/{{name}}_{{os}}_{{arch}}.zip'
