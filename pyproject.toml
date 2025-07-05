@@ -17,30 +17,6 @@ dependencies = [
   "semver (>=3.0.4,<4.0.0)",
 ]
 
-[build-system]
-requires = ["poetry-core (>=2.0.0,<3.0.0)"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-package-mode = false
-
-[tool.black]
-line-length = 88
-target-version = ['py313']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
-
 [tool.ruff]
 line-length = 99
 src = ["tasks"]
