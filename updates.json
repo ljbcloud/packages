@@ -1,0 +1,68 @@
+[
+  {
+    "package": "argocd",
+    "updated": true,
+    "from_version": "3.0.6",
+    "to_version": "3.1.0"
+  },
+  {
+    "package": "doctl",
+    "updated": true,
+    "from_version": "1.132.0",
+    "to_version": "1.141.0"
+  },
+  {
+    "package": "exo",
+    "updated": true,
+    "from_version": "1.85.3",
+    "to_version": "1.85.4"
+  },
+  {
+    "package": "flux",
+    "updated": true,
+    "from_version": "2.6.3",
+    "to_version": "2.6.4"
+  },
+  {
+    "package": "k3s",
+    "updated": true,
+    "from_version": "1.33.1",
+    "to_version": "1.33.3"
+  },
+  {
+    "package": "kustomize",
+    "updated": true,
+    "from_version": "5.7.0",
+    "to_version": "5.7.1"
+  },
+  {
+    "package": "packer",
+    "updated": true,
+    "from_version": "1.13.1",
+    "to_version": "1.14.1"
+  },
+  {
+    "package": "shellcheck",
+    "updated": true,
+    "from_version": "0.10.0",
+    "to_version": "0.11.0"
+  },
+  {
+    "package": "terraform",
+    "updated": true,
+    "from_version": "1.12.2",
+    "to_version": "1.13.0"
+  },
+  {
+    "package": "terragrunt",
+    "updated": true,
+    "from_version": "0.83.0",
+    "to_version": "0.86.0"
+  },
+  {
+    "package": "tflint",
+    "updated": true,
+    "from_version": "0.58.0",
+    "to_version": "0.58.1"
+  }
+]
