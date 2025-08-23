@@ -10,7 +10,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: CheckoutRepository
+      - name: Checkout Repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0  # needed to create branches and PRs properly
@@ -36,15 +36,33 @@ jobs:
         if: steps.cache-venv.outputs.cache-hit != 'true'
         run: uv venv
 
-      - name: Run Invoke Task
-        run: uv run invoke update.a
+      - name: Run Invoke Task and Capture Output
+        id: update-task
+        run: |
+          uv run invoke update.all > .cache/updates.json
+
+          # Build a nice summary: "argocd 3.0.6 → 3.1.0"
+          SUMMARY=$(jq -r '.[] | select(.updated==true) | "- \(.package): \(.from_version) → \(.to_version)"' .cache/updates.json | paste -sd '\n' -)
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          echo "$SUMMARY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get Current Timestamp
+        id: date
+        run: echo "datetime=$(date +'%Y-%m-%d-%H%M%S')" >> $GITHUB_OUTPUT
 
       - name: Commit and Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update dependencies and run invoke task
-          title: 'chore: update package versions'
+          commit-message: |
+            chore: update packages
+
+            Updated packages:
+            ${{ steps.update-task.outputs.summary }}
+          title: "chore: update package versions (${{ steps.date.outputs.datetime }})"
           body: |
-            This pull request was automatically created by a GitHub Action that updates package versions.
-          branch: update/package-versions
+            The following packages were updated:
+
+            ${{ steps.update-task.outputs.summary }}
+          branch: update/package-versions-${{ steps.date.outputs.datetime }}
