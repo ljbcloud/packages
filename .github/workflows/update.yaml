@@ -46,7 +46,7 @@ jobs:
           echo "summary<<EOF" >> $GITHUB_OUTPUT
           echo "$SUMMARY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          rm -rf update.json
+          rm -rf updates.json
 
       - name: Get Current Timestamp
         id: date
