@@ -39,13 +39,14 @@ jobs:
       - name: Run Invoke Task and Capture Output
         id: update-task
         run: |
-          uv run invoke update.all > .cache/updates.json
+          uv run invoke update.all > updates.json
 
           # Build a nice summary: "argocd 3.0.6 → 3.1.0"
-          SUMMARY=$(jq -r '.[] | select(.updated==true) | "- \(.package): \(.from_version) → \(.to_version)"' .cache/updates.json | paste -sd '\n' -)
+          SUMMARY=$(jq -r '.[] | select(.updated==true) | "- \(.package): \(.from_version) → \(.to_version)"' updates.json | paste -sd '\n' -)
           echo "summary<<EOF" >> $GITHUB_OUTPUT
           echo "$SUMMARY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+          rm -rf update.json
 
       - name: Get Current Timestamp
         id: date
