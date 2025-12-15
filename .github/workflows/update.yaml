@@ -16,14 +16,14 @@ jobs:
           fetch-depth: 0  # needed to create branches and PRs properly
 
       - name: Cache asdf Tools
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-asdf
         with:
           path: ~/.asdf
           key: asdf-cache-${{ runner.os }}-${{ hashFiles('.tool-versions') }}
 
       - name: Cache Virtual Environment
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-venv
         with:
           path: .venv
